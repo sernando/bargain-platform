@@ -64,5 +64,22 @@ block body
             img(href="#{goods}")
             div.goodsName #{goods}
 
+    div(style="text-align:center")
+      ul.pagination
+        li(ng-class="{disabled: currentPage == 1}")
+          a(href="javascript:void(0)" ng-click="toPage(1)") 首页
+        li(ng-class="{disabled: currentPage == 1}")
+          a(href="javascript:void(0)" ng-click="prevPage()" aria-label="Previous")
+            span(aria-hidden="true") &laquo;
+        li(ng-repeat="page in pages" ng-class="{disabled: currentPage == page}")
+          a(href="javascript:void(0)" ng-click="toPage(page)") {{page}}
+        li(ng-class="totalPage == 0 ? 'disabled' : (totalPage == currentPage ? 'disabled' : '')")
+          a(href="javascript:void(0)" ng-click="nextPage()" aria-label="Next")
+            span(aria-hidden="true") &raquo;
+        li(ng-class="totalPage == 0 ? 'disabled' : (totalPage == currentPage ? 'disabled' : '')")
+          a(href="javascript:void(0)" ng-click="toPage(totalPage)") 尾页
+
+
+  foot
 
 
