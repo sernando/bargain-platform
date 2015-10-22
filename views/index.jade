@@ -1,0 +1,68 @@
+extends ./layout
+
+block styles
+  link(href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel='stylesheet')
+  link(href="styles/index.css" rel='stylesheet')
+
+
+block body
+  div(id="navbar")
+    nav.navbar.navbar-inverse.navbar-default
+      div.container-fluid
+        div.navbar-header
+          button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#index-navbar" aria-expanded="false")
+            span.sr-only Toggle navigation
+            span.icon-bar 
+            span.icon-bar 
+          a.navbar-brand(href="#") 二手交易V0.0.1
+
+        div.collapse.navbar-collapse(id="index-navbar")
+          ul.nav.navbar-nav
+            li.active
+              a(href="#test1") 测试1
+            li
+              a(href="#test2") 测试2
+
+  div.container(id="context")
+    div.row
+      div.col-md-5
+        div.btn-group(role="group")
+          div.btn-group
+            button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") 段位
+              span.caret
+            ul.dropdown-menu
+              li 全部
+              li.divider(role="separator")
+              li(ng-repeat="level in levelList" ng-click="filterByLevel(level)") {{level}}
+          div.btn-group
+            button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") 类别
+              span.caret
+            ul.dropdown-menu
+              li 全部
+              li.divider(role="separator")
+              li(ng-repeat="category in categoryList" ng-click="filterByLevel(category)") {{category}}
+      div.col-md-7.form-inline(id="sandbax-container" style="text-align:right")
+        div.form-group
+          label 筛选
+          input.form-control(type="text" ng-model="keyParams" typeahead="goods as goods.name for goods in goodsList | filterByInput:$viewValue | limitTo:8" typeahead-on-select="selectedCutomer($item, $model, $label)")
+
+    div.container.table-responsive(id="goodsList")
+      table.table.table-hover.activity-table
+        div.btn-group(id="sort" data-toggle="buttons")
+          label.btn.btn-default(ng-class="{active}")
+            input(type="radio" autocomplete="off" checked)
+            | 上架时间
+          label.btn.btn-info(ng-class="{active}")
+            input(type="radio" autocomplete="off")
+            | 价格
+          label.btn.btn-default(ng-class="{active}")
+            input(type="radio" autocomplete="off")
+            | 发货时间
+        
+        div(id="goods")
+          li(ng-repeat="goods in goodsList" ng-click="")
+            img(href="#{goods}")
+            div.goodsName #{goods}
+
+
+
